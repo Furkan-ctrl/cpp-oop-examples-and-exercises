@@ -49,7 +49,92 @@ using namespace std;
 /* 
     Solution 
 */
+class BankAccount {
+private:
+    int accountNumber;
+    double balance;
 
+public:
+    
+    BankAccount() {
+        accountNumber = 0;
+        balance = 0.0;
+    }
+
+    BankAccount(int accNumber) {
+        accountNumber = accNumber;
+        balance = 0.0;
+    }
+
+    void setAccountNumber(int accNumber) {
+        accountNumber = accNumber;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+        } else {
+            cout << "Account " << accountNumber << ": Insufficient balance or invalid amount!" << endl;
+        }
+    }
+
+    void displayBalance() const {
+        cout << "Account #" << accountNumber << " | Balance: $" << balance << endl;
+    }
+};
+
+
+class Bank {
+private:
+    BankAccount* accounts; 
+    int numAccounts;
+
+public:
+    
+    Bank(int num) {
+        numAccounts = num;
+        accounts = new BankAccount[numAccounts]; 
+
+        for (int i = 0; i < numAccounts; ++i) {
+            accounts[i].setAccountNumber(1001 + i);
+        }
+        cout << "[LOG] Bank opened with " << numAccounts << " dynamically allocated accounts." << endl;
+    }
+
+    ~Bank() {
+        delete[] accounts; 
+        cout << "[LOG] Bank closed. Dynamically allocated accounts memory safely freed." << endl;
+    }
+
+
+    void performTransactions() {
+        cout << "\n--- Performing Transactions ---" << endl;
+        
+        if (numAccounts >= 3) {
+            accounts[0].deposit(1000);
+            accounts[1].deposit(500);
+            accounts[2].deposit(200);
+            accounts[2].withdraw(50);
+        } else if (numAccounts > 0) {
+            accounts[0].deposit(100);
+        }
+    }
+
+    
+    void displayAllBalances() const {
+        cout << "\n--- Bank Accounts Balances ---" << endl;
+        for (int i = 0; i < numAccounts; ++i) {
+            accounts[i].displayBalance();
+        }
+        cout << "------------------------------\n" << endl;
+    }
+};
 
 
 int main() {
