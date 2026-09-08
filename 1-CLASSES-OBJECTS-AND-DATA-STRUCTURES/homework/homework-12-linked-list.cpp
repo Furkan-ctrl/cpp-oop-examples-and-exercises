@@ -127,8 +127,105 @@ using namespace std;
 
 
 /* Solution */
+struct Node {
+    int data;
+    Node* next;
 
+    Node(int value){
+        data = value;
+        next = nullptr;
+    }
+};
 
+class LinkedList {
+ private:
+    Node* head; 
+
+ public:
+    LinkedList(){
+        head = nullptr;
+    }
+
+    ~LinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* nextNode = current->next;
+
+            cout << "delete on " << current->data << endl; 
+            delete current;
+            current = nextNode;
+        }
+    }
+
+    LinkedList& insert(int value) {
+        Node* newNode = new Node(value);
+        newNode->next = head;
+        head = newNode;
+        return *this;
+    }
+
+    LinkedList& append(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            return *this;
+        }
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+        return *this;
+    }
+
+    LinkedList& remove(int value) {
+        if (head == nullptr)
+         return *this;
+
+        if (head->data == value) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+            return *this;
+        }
+
+        Node* current = head;
+        while (current->next != nullptr && current->next->data != value) {
+            current = current->next;
+        }
+
+        if (current->next != nullptr) {
+            Node* temp = current->next;
+            current->next = current->next->next;
+            delete temp;
+        }
+        return *this;
+    }
+
+    bool search(int value) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == value) {
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
+    }
+
+    LinkedList& display() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << "[" << current->data << " | " << current->next << "]";
+            if (current->next != nullptr) {
+                cout << " ---> ";
+            }
+            current = current->next;
+        }
+        cout << endl;
+        return *this;
+    }
+};
 
 int main() {
 
