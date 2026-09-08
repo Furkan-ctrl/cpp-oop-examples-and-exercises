@@ -1,5 +1,7 @@
 #include "LinkedList.h"
-#include "LinkedList.h"
+#include "iostream"
+
+using namespace std;
 
 /*
     Definition of Stack:
@@ -64,7 +66,85 @@
 
 
 /*  Solution  */
+class LinkedListStack {
+private:
+    LinkedList list; 
 
+public:
+    LinkedListStack() {}
+
+    LinkedListStack& push(int value) {
+        list.insert(value);
+        return *this;
+    }
+
+    LinkedListStack& pop() {
+        if (isEmpty()) {
+            cout << "Nothing to pop" << endl;
+            return *this;
+        }
+        list.removeFirst();
+        return *this;
+    }
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "Nothing to peek" << endl;
+            return;
+        }
+        Node* topNode = list.getHead();
+        cout << "Peek: [" << topNode->data << " | " << topNode->next << "]" << endl;
+    }
+
+    bool isEmpty(){
+        return list.getHead() == nullptr;
+    }
+
+    int size() const {
+        int count = 0;
+        Node* current = list.getHead();
+        while (current != nullptr) {
+            count++;
+            current = current->next;
+        }
+        return count;
+    }
+
+    LinkedListStack& displayStack() {
+        if (isEmpty()) {
+            cout << "Stack is empty" << endl;
+            return *this;
+        }
+        cout << "Display Stack: ";
+        Node* current = list.getHead();
+        while (current != nullptr) {
+            cout << "[" << current->data << " | " << current->next << "]";
+            if (current->next != nullptr) {
+                cout << " ---> ";
+            }
+            current = current->next;
+        }
+        cout << " " << endl;
+        return *this;
+    }
+
+    ~LinkedListStack() {
+        cout << "Start Stack Deallocation:" << endl;
+        cout << " -Destructor: " << endl;
+        
+        int elementsDeleted = 0;
+        Node* current = list.getHead();
+        while (current != nullptr) {
+            elementsDeleted++;
+            current = current->next;
+        }
+        
+        for (int i = 0; i < elementsDeleted; i++) {
+            cout << "    delete on " << i << endl;
+        }
+        cout << "End of Stack Deallocation" << endl;
+    }
+};
 
 
 
