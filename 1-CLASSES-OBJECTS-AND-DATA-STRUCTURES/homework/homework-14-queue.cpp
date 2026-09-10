@@ -73,7 +73,82 @@ using namespace std;
 
 
 /*  Solution  */
+struct Node {
+    int data;
+    Node* next;
+    
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
 
+class Queue {
+private:
+    Node* frontPtr; 
+    Node* rearPtr;  
+    int queueSize;  
+
+public:
+    Queue() {
+        frontPtr = nullptr;
+        rearPtr = nullptr;
+        queueSize = 0;
+    }
+
+    ~Queue() {
+        while (!isEmpty()) {
+            dequeue();
+        }
+    }
+
+    void enqueue(int value) {
+        Node* newNode = new Node(value);
+        
+        if (isEmpty()) {
+            frontPtr = rearPtr = newNode;
+        } else {
+            rearPtr->next = newNode;
+            rearPtr = newNode;
+        }
+        queueSize++;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            throw runtime_error("Cannot dequeue from an empty queue");
+        }
+        
+        Node* temp = frontPtr;
+        int dequeuedValue = temp->data;
+        
+        frontPtr = frontPtr->next;
+        delete temp;
+        
+        if (frontPtr == nullptr) {
+            rearPtr = nullptr;
+        }
+        
+        queueSize--;
+        return dequeuedValue;
+    }
+
+    int peek() const {
+        if (isEmpty()) {
+            throw runtime_error("Cannot peek front element from an empty queue");
+        }
+        return frontPtr->data;
+    }
+
+    bool isEmpty() const {
+        return frontPtr == nullptr;
+    }
+
+    int size() const {
+        return queueSize;
+    }
+};
+    
 
 
 int main() {
