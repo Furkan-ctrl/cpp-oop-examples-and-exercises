@@ -28,23 +28,63 @@ using namespace std;
 /* Starter Code: */
 
 class Project {
-    // ... (Same as provided code)
-};
+protected:
+    string projectName;
+
+public:
+    Project(const string& projName) : projectName(projName) {}
+
+    void displayProject() const {
+        cout << "Project: " << projectName << endl;
+    }
+}; // overloaded constructorun olayi nedi? pay attention to this task !!!!!!!!!
 
 class TeamMember {
-    // ... (Same as provided code)
+protected:
+    string memberName;
+
+public:
+    TeamMember(const string& name) : memberName(name) {}
+
+    void displayTeamMember() const {
+        cout << "Team Member: " << memberName << endl;
+    }
 };
 
 class Task {
-    // ... (Same as provided code)
+protected:
+    string taskName;
+
+public:
+    Task(const string& name) : taskName(name) {}
+
+    void displayTask() const {
+        cout << "Task: " << taskName << endl;
+    }
 };
 
 class ProjectTeamMember : public Project, public TeamMember {
     // ... (Same as provided code)
+    public:
+    ProjectTeamMember(const string& projName, const string& memberName)
+        : Project(projName), TeamMember(memberName) {}
+
+    void displayProjectTeamMember() const {
+        displayProject();
+        displayTeamMember();
+    }
 };
 
 class TeamMemberTask : public TeamMember, public Task {
     // ... (Same as provided code)
+    public:
+    TeamMemberTask(const string& memberName, const string& taskName)
+        : TeamMember(memberName), Task(taskName) {}
+
+    void displayTeamMemberTask() const {
+        displayTeamMember();
+        displayTask();
+    }
 };
 
 
@@ -83,7 +123,7 @@ class TeamMemberTask : public TeamMember, public Task {
 
 int main() {
 
-    system("clear");
+    system("cls");
 
     ProjectTeamMember ptm("Project X", "Alice");
     TeamMemberTask tmt("Bob", "Code Review");
