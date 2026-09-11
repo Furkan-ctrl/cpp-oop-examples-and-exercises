@@ -42,9 +42,34 @@ using namespace std;
 */
 
 /*    Solution    */
+class Person{
+    protected:
+        string name;
+        int age;
+        int grades;
 
+    public:
+        Person(string name, int age, int grades){
+            
+            this->name = name;
+            this->age = age;
+            this->grades = grades;
+            cout << "Person Constructor Called..." << endl;
+        }
 
+        int GetGrades() const {
+            return grades;
+        }
+};
 
+class Teacher : private Person{
+    public:
+        Teacher(string name, int age , int grades) : Person(name, age, grades) {cout << "Teacher Constructor Called..." << endl;}
+
+        void ReviewGrades() {
+            cout << "Teacher " << name << " is reviewing grades: " << GetGrades() << endl;
+        }
+};
 
 int main() {
 
