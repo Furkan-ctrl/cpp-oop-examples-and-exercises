@@ -45,7 +45,7 @@ using namespace std;
     
     Discussion Points:
     Why would you choose public inheritance for certain classes?
-    When is protected inheritance useful and in what scenarios should it be avoided?
+    When is protected inheritance useful and in what scenarios should it be avoided?              When to avoid??????????
     How does private inheritance restrict access compared to public and protected inheritance?
     
     Note: This exercise is designed to encourage understanding of inheritance types and their implications. 
@@ -55,9 +55,58 @@ using namespace std;
 
 
 /*  Solution  */
+class Vehicle {
+protected:
+    int id;
+    int maxSpeed;
 
+public:
+    Vehicle(int vehicleId, int speed) : id(vehicleId), maxSpeed(speed) {}
 
+    void display() const {
+        cout << "Vehicle ID: " << id << ", Max Speed: " << maxSpeed << " km/h" << endl;
+    }
+};
 
+class Car : public Vehicle {
+private:
+    int numDoors;
+
+public:
+    Car(int vehicleId, int speed, int doors) : Vehicle(vehicleId, speed), numDoors(doors) {}
+
+    double calculateFuelEfficiency() const {
+        return 100.0 / (numDoors * 2); 
+    }
+};
+
+class Bus : public Vehicle {
+private:
+    int maxPassengers;
+
+public:
+    Bus(int vehicleId, int speed, int passengers) : Vehicle(vehicleId, speed), maxPassengers(passengers) {}
+
+    void announceNextStop() const {
+        cout << "Next stop: Central Station" << endl;
+    }
+};
+
+class Manager {
+private:
+    vector<Vehicle*> fleet;
+
+public:
+    void addVehicle(Vehicle* vehicle) {
+        fleet.push_back(vehicle);
+    }
+
+    void displayFleet() const {
+        for (const auto& vehicle : fleet) {
+            vehicle->display();
+        }
+    }
+};
 
 int main() {
 
