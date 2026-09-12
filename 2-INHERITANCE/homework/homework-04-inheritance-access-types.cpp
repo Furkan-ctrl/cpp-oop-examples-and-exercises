@@ -130,3 +130,5 @@ int main() {
 
     return 0;
 }
+
+// Setterlar protected mi olmalıdir yoxsa public mi?
