@@ -102,16 +102,29 @@ class Character : public GameObject {
         int level;
 };
 
+class Weapon : public GameObject {
+    public:
+        Weapon(const string& name, int damage) : GameObject(name), damage(damage) {}
+
+        void displayInfoWeapon() {
+            displayInfo();
+            cout << "Damage: " << damage <<endl;
+        }
+
+    private:
+        int damage;
+};
 
 int main() {
 
-    system("clear");
+    system("cls");
 
     /*   Example Usage   */
     Player player("Hero", 100);
     Enemy enemy("Goblin", 20);
     Character character("Adventurer", 5);
-
+    Weapon weapon("Sword", 15);
+    
     player.displayInfoPlayer();
     cout << endl;
 
