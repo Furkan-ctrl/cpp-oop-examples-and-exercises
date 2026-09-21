@@ -40,28 +40,81 @@ using namespace std;
 
 
 class Account {
-    public:
-        // Constructor, virtual destructor, and methods go here
+protected:
+    int accountNumber;
+    double balance;
 
-        
+public:
+    Account(const int accNum, const double bal) : accountNumber(accNum), balance(bal) {}
+    
+    virtual ~Account() {
+        cout << "Account #" << accountNumber << " destroyed." << endl;
+    }
+    
+    virtual void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "Deposited $" << amount << " into Account #" << accountNumber << endl;
+        }
+    }
+    
+    virtual void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+        }
+    }
+    
+    virtual void displayBalance() {
+        cout << "Account #" << accountNumber << " Balance: $" << balance << endl;
+    }
 };
 
 
 class SavingsAccount : public Account {
-    public:
-        // Constructor and overridden methods go here
+private:
+    double interestRate;
 
-        
+public:
+    SavingsAccount(const int accNum, const double bal, const double rate) 
+        : Account(accNum, bal), interestRate(rate) {}
+
+    void displayBalance() override {
+        cout << "Savings Account #" << accountNumber 
+             << " | Balance: $" << balance 
+             << " | Interest Rate: " << interestRate << "%" << endl;
+    }
+
+    void withdraw(double amount) override {
+        if (amount > balance) {
+            cout << "Error: Insufficient funds in Savings Account #" << accountNumber 
+                 << ", Cannot withdraw $" << amount << endl;
+        } else if (amount > 0) {
+            balance -= amount;
+            cout << "Withdrew $" << amount << " from Savings Account #" << accountNumber << endl;
+        }
+    }
 };
 
 
 class CheckingAccount : public Account {
-    public:
-        // Constructor and overridden methods go here
+public:
+    CheckingAccount(const int accNum, const double bal) : Account(accNum, bal) {}
 
-        
+    void displayBalance() override {
+        cout << "Checking Account #" << accountNumber 
+             << " | Balance: $" << balance << endl;
+    }
+
+    void withdraw(double amount) override {
+        if (amount > balance) {
+            cout << "Error: Insufficient funds in Checking Account #" << accountNumber 
+                 << ", Cannot withdraw $" << amount << endl;
+        } else if (amount > 0) {
+            balance -= amount;
+            cout << "Withdrew $" << amount << " from Checking Account #" << accountNumber << endl;
+        }
+    }
 };
-
 
 int main() {
     // Create instances of SavingsAccount and CheckingAccount
@@ -84,6 +137,31 @@ int main() {
         // Properly clean up objects
         
     */
+
+    Account* savings = new SavingsAccount(1001, 1000.0, 3.0); // Account Number, Initial Balance, Interest Rate
+    Account* checking = new CheckingAccount(2001, 2000.0);    // Account Number, Initial Balance
+
+    cout << "--- Initial Balances ---" << endl;
+    savings->displayBalance();
+    checking->displayBalance();
+    cout << endl;
+
+    cout << "--- Transactions ---" << endl;
+    savings->deposit(500.0);
+    checking->withdraw(500.0);
+    
+    savings->withdraw(2000.0); 
+    cout << endl;
+
+    cout << "--- Final Status ---" << endl;
+    savings->displayBalance();
+    checking->displayBalance();
+    cout << endl;
+
+    cout << "--- Cleaning up resources ---" << endl;
+    delete savings;
+    delete checking;
+
 
     return 0;
 }
