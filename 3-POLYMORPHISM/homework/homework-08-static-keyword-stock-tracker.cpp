@@ -24,6 +24,12 @@ using namespace std;
 */
 double trackStockPrice(string symbol, double currentPrice) {
     // your code
+    static double highestPrice = 0;
+
+    if (currentPrice > highestPrice) {
+        highestPrice = currentPrice;
+    }
+    return highestPrice;
 }
 
 
@@ -40,6 +46,43 @@ double trackStockPrice(string symbol, double currentPrice) {
 */
 class BankAccount {
     // your code
+
+private:
+    static int nextAccountNumber; 
+    int accountNumber;
+    double balance;
+
+public:
+
+    static int totalAccounts; 
+
+    BankAccount() {
+        accountNumber = nextAccountNumber++;
+        totalAccounts++;
+        balance = 0.0;
+    }
+
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "Deposited: $" << amount << endl;
+        } else {
+            cout << "Invalid deposit amount." << endl;
+        }
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            cout << "Withdrew: $" << amount << endl;
+        } else {
+            cout << "Invalid withdrawal amount." << endl;
+        }
+    }
+
+    void displayAccountDetails() const {
+        cout << "Account Number: " << accountNumber << ", Balance: $" << balance << endl;
+    }
 };
 
 
@@ -51,7 +94,9 @@ class BankAccount {
     which ensures that only one instance(object) of the class can be created. 
 */
 class OnlyOneInstance {
-    // your code
+    // your code ?????????????????????????????????/
+    
+
 };
 
 
