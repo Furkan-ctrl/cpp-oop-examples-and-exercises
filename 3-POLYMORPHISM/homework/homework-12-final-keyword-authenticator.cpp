@@ -78,3 +78,5 @@ int main() {
 
     return 0;
 }
+
+//Since BasicAuthenticator have some security logic that should not be overridden, it is a good idea to mark it as final. This prevents any further inheritance
