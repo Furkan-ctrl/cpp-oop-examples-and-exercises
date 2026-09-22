@@ -33,6 +33,8 @@ class LibraryItem {
 
         // Add a static member to keep track of the total library items
         // your code ...
+        static int totalItems;
+
 
     protected:
         string title;
@@ -41,15 +43,20 @@ class LibraryItem {
 // Define the static member totalItems for the LibraryItem class here
 // Initialize it to 0.
 
+int LibraryItem::totalItems = 0;
+
 class Book : public LibraryItem {
     public:
         Book(const string& title, const string& author) : LibraryItem(title), author(author) {
             // Increment the totalItems count for each book added.
             // Hint: Use the static member of the LibraryItem class.
+            totalItems++;
         }
 
         double calculateLateFee(int daysLate) const override {
             // Implement the late fee calculation for books.
+            return daysLate * 0.25;
+
         }
 
         void displayInfo() const override {
@@ -66,10 +73,12 @@ class DVD : public LibraryItem {
         DVD(const string& title, int duration) : LibraryItem(title), duration(duration) {
             // Increment the totalItems count for each DVD added.
             // Hint: Use the static member of the LibraryItem class.
+            totalItems++;
         }
 
         double calculateLateFee(int daysLate) const override {
             // Implement the late fee calculation for DVDs.
+            return daysLate * 0.50;
         }
 
         void displayInfo() const override {
@@ -86,8 +95,18 @@ int main() {
     // Create instances of Book and DVD and test their functionality.
     // Hint: Create Book and DVD objects, display their information, and calculate late fees.
 
+    Book book1("The Great Gatsby", "F. Scott Fitzgerald");
+    DVD dvd1("Inception", 148);
+
+    // Display information for the book and DVD
+    book1.displayInfo();
+    dvd1.displayInfo();
+    book1.calculateLateFee(5);
+    dvd1.calculateLateFee(3);
+    
     // Display the total number of library items using the static member totalItems.
     // Hint: Access the totalItems static member from the LibraryItem class.
+    cout << "Total library items: " << LibraryItem::totalItems << endl;
 
     return 0;
 }
