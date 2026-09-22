@@ -20,10 +20,12 @@ class DatabaseConnection {
     public:
         // Establishes a connection to the database
         virtual void connect() const = 0;
+
+        virtual ~DatabaseConnection() {}
 };
 
 // TODO: Decide whether to mark the following class as final or not
-class MySqlConnection : public DatabaseConnection {
+class MySqlConnection final : public DatabaseConnection {
     public:
         void connect() const override {
             cout << "Connecting to MySQL database..." << endl;
@@ -32,7 +34,7 @@ class MySqlConnection : public DatabaseConnection {
 };
 
 // TODO: Decide whether to mark the following class as final or not
-class PostgresConnection : public DatabaseConnection {
+class PostgresConnection final : public DatabaseConnection {
     public:
         void connect() const override {
             cout << "Connecting to PostgreSQL database..." << endl;
@@ -45,12 +47,12 @@ class ConnectionFactory {
     public:
         // TODO: Decide whether to mark the following methods as static or not
         // Factory method to create a MySQL connection
-        DatabaseConnection* createMySQLConnection() {
+        static DatabaseConnection* createMySQLConnection() {
             return new MySqlConnection();
         }
 
         // Factory method to create a PostgreSQL connection
-        DatabaseConnection* createPostgresConnection() {
+        static DatabaseConnection* createPostgresConnection() {
             return new PostgresConnection();
         }
 };
@@ -59,13 +61,15 @@ class ConnectionFactory {
 int main() {
 
     // TODO: Create instances of database connections using the factory
-    ConnectionFactory factory;
-    DatabaseConnection* mysqlConnection = factory.createMySQLConnection();
-    DatabaseConnection* postgresConnection = factory.createPostgresConnection();
+    DatabaseConnection* mysqlConnection = ConnectionFactory::createMySQLConnection();
+    DatabaseConnection* postgresConnection = ConnectionFactory::createPostgresConnection();
 
+    mysqlConnection->connect();
+    postgresConnection->connect();
+    
     // TODO: Decide whether to uncomment the following lines to delete instances
-    // delete mysqlConnection;
-    // delete postgresConnection;
+     delete mysqlConnection;
+     delete postgresConnection;
 
     return 0;
 }
