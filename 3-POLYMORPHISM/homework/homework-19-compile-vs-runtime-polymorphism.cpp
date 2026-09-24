@@ -42,7 +42,7 @@ using namespace std;
 
 class MathOperations {
     public:
-        // Method Overloading - Compile-Time Polymorphism
+        // Method Overloading - Compile-Time Polymorphism 
         int add(int a, int b) {
             return a + b;
         }
@@ -57,7 +57,8 @@ class Complex {
         double real;
         double imag;
 
-        // Operator Overloading - Compile-Time Polymorphism
+        // Operator Overloading - Compile-Time Polymorphism -- this is an example of compile-time polymorphism because the operator+ function is overloaded to handle Complex objects,
+        // allowing the addition of two Complex numbers using the + operator. 
         Complex operator+(const Complex& other) const {
             Complex result;
             result.real = real + other.real;
@@ -68,7 +69,7 @@ class Complex {
 
 class Shape {
     public:
-        // Virtual Function and Inheritance - Run-Time Polymorphism
+        // Virtual Function and Inheritance - Run-Time Polymorphism -- I will explain in lesson.
         virtual void draw() const {
             cout << "Drawing a Shape" << endl;
         }
@@ -93,10 +94,10 @@ int main() {
 
     MathOperations math;
 
-    // Guess: Is this an example of compile-time or run-time polymorphism?
+    // Guess: Is this an example of compile-time or run-time polymorphism? - compile-time polymorphsim.
     cout << "Sum (int): " << math.add(3, 4) << endl;
 
-    // Guess: Is this an example of compile-time or run-time polymorphism?
+    // Guess: Is this an example of compile-time or run-time polymorphism? - compile-time polymorphism.
     cout << "Sum (double): " << math.add(3.5, 4.5) << endl;
 
     Complex c1, c2, result;
@@ -105,17 +106,17 @@ int main() {
     c2.real = 2.5;
     c2.imag = 1.5;
 
-    // Guess: Is this an example of compile-time or run-time polymorphism?
+    // Guess: Is this an example of compile-time or run-time polymorphism? - compile-time polymorphism.
     result = c1 + c2;
     cout << "Sum: " << result.real << " + " << result.imag << "i" << endl;
 
     Shape* shape1 = new Circle();
     Shape* shape2 = new Square();
 
-    // Guess: Is this an example of compile-time or run-time polymorphism?
+    // Guess: Is this an example of compile-time or run-time polymorphism? - run-time polymorphism.
     shape1->draw();  // Calls the draw() method of Circle
 
-    // Guess: Is this an example of compile-time or run-time polymorphism?
+    // Guess: Is this an example of compile-time or run-time polymorphism? - run-time polymorphism.
     shape2->draw();  // Calls the draw() method of Square
 
     delete shape1;
