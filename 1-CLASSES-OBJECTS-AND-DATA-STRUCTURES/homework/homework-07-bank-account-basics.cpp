@@ -35,7 +35,49 @@ using namespace std;
     Solution 
 */
 class BankAccount {
-}
+    private:
+    int accountNumber;
+    double balance;
+
+    static int activeAccountsCount;
+
+public:
+    
+    BankAccount(int accNum) {
+        accountNumber = accNum;
+        balance = 0.0; 
+        activeAccountsCount++; 
+    }
+
+    
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    
+    void withdraw(double amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+        } else {
+            cout << "Insufficient balance or invalid amount!" << endl;
+        }
+    }
+
+    
+    double getBalance() const {
+        return balance;
+    }
+
+    ~BankAccount() {
+        activeAccountsCount--; 
+        
+        if (activeAccountsCount == 0) {
+            cout << "[LOG] All accounts have been safely processed. Banking system session closed" << endl;
+        }
+    }
+};
 
 
 int main() {

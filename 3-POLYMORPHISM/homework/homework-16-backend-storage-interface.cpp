@@ -31,6 +31,9 @@ using namespace std;
 // Abstract interface for data storage
 class DataStorage {
     // TODO: Declare pure virtual functions for storing and retrieving data
+public:
+    virtual void storeData(const string& data) = 0;  
+    virtual string retrieveData() = 0;  
     virtual ~DataStorage() {}   // Virtual destructor
 };
 
@@ -38,6 +41,14 @@ class DataStorage {
 // Concrete class implementing data storage using a file
 class FileStorage : public DataStorage {
     // TODO: Implement functions to store and retrieve data using a file
+public:
+    void storeData(const string& data) override {
+        cout << "Storing data in file: " << data << endl;
+    }
+
+    string retrieveData() override {
+        return "Data retrieved from file";
+    }
 
     // Virtual destructor
     ~FileStorage() {
@@ -49,6 +60,14 @@ class FileStorage : public DataStorage {
 // Concrete class implementing data storage using a database
 class DatabaseStorage : public DataStorage {
     // TODO: Implement functions to store and retrieve data using a database
+public:
+    void storeData(const string& data) override {
+        cout << "Storing data in database: " << data << endl;
+    }
+
+    string retrieveData() override {
+        return "Data retrieved from database";
+    }
 
     // Virtual destructor
     ~DatabaseStorage() {

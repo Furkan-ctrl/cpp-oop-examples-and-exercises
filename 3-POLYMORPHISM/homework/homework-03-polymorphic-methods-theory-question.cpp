@@ -31,7 +31,7 @@ using namespace std;
 
 /*
     Solution:
-        
+    move() should be polymorphic in the Vehicle class, getters and setters do not need to be polymorphic, cause they are common to all vehicles and do not require different implementations in derived classes.
 */
 
 
@@ -61,7 +61,9 @@ using namespace std;
 
 /*
     Solution:
-        
+        calculateTax() and calculateShipping() should be polymorphic,
+         as different product types may have different tax rates and shipping costs.
+
 */
 
 
@@ -93,7 +95,7 @@ using namespace std;
 
 /*
     Solution:
-
+manageUsers(), postContent(), and deleteContent() should be polymorphic, as different user types may have different permissions and capabilities .
     
 */
 

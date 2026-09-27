@@ -68,12 +68,84 @@ using namespace std;
 */
 
 // Solution
+class LibraryItem {
+protected:
+    string title;
+    int year;
+    bool isCheckedOut;
 
+public:
+    LibraryItem(string t, int y) : title(t), year(y), isCheckedOut(false) {}
+    virtual void checkout() {
+        isCheckedOut = true;
+    }
+
+    virtual void checkin() {
+        isCheckedOut = false;
+    }
+
+    virtual void displayInfo() {
+        cout << "Title: " << title << endl;
+        cout << "Year: " << year << endl;
+        cout << "Status: " << (isCheckedOut ? "Checked out" : "Checked in") << endl;
+    }
+};
+
+class Book : public LibraryItem {
+private:
+    string author;
+
+public:
+    Book(string t, int y, string a) : LibraryItem(t, y), author(a) {}
+    void displayInfo() override {
+        LibraryItem::displayInfo();
+        cout << "Author: " << author << endl;
+    }
+
+};
+
+class EBook : public LibraryItem {
+private:
+    string format;
+
+public:
+    EBook(string t, int y, string f) : LibraryItem(t, y), format(f) {}
+    void displayInfo() override {
+        LibraryItem::displayInfo();
+        cout << "Format: " << format << endl;
+    }
+
+};
+
+class AudioCD : public LibraryItem {
+private:
+    string artist;
+
+public:
+    AudioCD(string t, int y, string a) : LibraryItem(t, y), artist(a) {}
+    void displayInfo() override {
+        LibraryItem::displayInfo();
+        cout << "Artist: " << artist << endl;
+    }
+
+};
 
 
 int main() {
 
     /*      Example usage:     */ 
+ Book book("The Great Gatsby", 1925, "F. Scott Fitzgerald");
+    EBook ebook("The Hitchhiker's Guide to the Galaxy", 1979, "EPUB");
+    AudioCD audioCD("Abbey Road", 1969, "The Beatles");
+
+    LibraryItem* items[] = { &book, &ebook, &audioCD };
+
+    for (LibraryItem* item : items) {
+        item->checkin();
+        item->displayInfo();
+        cout << endl;
+        item->checkout();
+    }
 
     
 

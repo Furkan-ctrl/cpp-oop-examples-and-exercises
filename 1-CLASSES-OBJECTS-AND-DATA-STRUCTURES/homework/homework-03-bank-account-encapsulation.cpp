@@ -29,10 +29,34 @@ class BankAccount {
         // Constructor
         BankAccount(int accountNumber, const string &holderName, double initialBalance) {
             // TODO: Initialize member variables
+            this->accountNumber = accountNumber;
+            this->holderName = holderName;
+            this->balance = initialBalance;
         }
 
         // Member functions
         // TODO: Implement member functions for deposit, withdraw, and check balance
+        void deposit(double amount) {
+            if (amount > 0) {
+                balance += amount;
+                cout << "Deposited: " << amount << endl;
+            } else {
+                cout << "Deposit amount must be positive." << endl;
+            }
+        }
+
+        void withdraw(double amount) {
+            if (amount > 0 && amount <= balance) {
+                balance -= amount;
+                cout << "Withdrew: " << amount << endl;
+            } else {
+                cout << "Invalid withdrawal amount." << endl;
+            }
+        }
+
+        double getBalance() const {
+            return balance;
+        }
 };
 
 
@@ -41,6 +65,10 @@ int main() {
 
     // TODO: Create an instance of the BankAccount class
     // TODO: Test the deposit, withdraw, and check balance operations
+    BankAccount account(12345, "John Doe", 1000.0);
+    account.deposit(500.0);
+    account.withdraw(200.0);
+    cout << "Current balance: $" << account.getBalance() << endl;
 
     /*
         You need to complete the implementation of the BankAccount class by:

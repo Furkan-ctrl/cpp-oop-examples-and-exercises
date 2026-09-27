@@ -1,4 +1,6 @@
 #include <iostream>
+#include "Product.h"
+#include "Order.h"
 
 using namespace std;
 
@@ -54,7 +56,7 @@ using namespace std;
 
 int main() {
 
-    system("clear");
+    system("cls");
 
     // Create products
     Product p1(1, "Product 1", 10.0);

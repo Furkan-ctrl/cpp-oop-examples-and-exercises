@@ -27,7 +27,41 @@ using namespace std;
 
 
 /* Solution */
+class MathOperations {
+private:
+    int result;
 
+public:
+    MathOperations(int initial_val) : result(initial_val) {}
+
+    MathOperations& add(int val) {
+        result += val;
+        return *this; 
+    }
+
+    MathOperations& subtract(int val) {
+        result -= val;
+        return *this;
+    }
+
+    MathOperations& multiply(int val) {
+        result *= val;
+        return *this;
+    }
+
+    MathOperations& divide(int val) {
+        if (val == 0) {
+            cout << "\nError: Division by zero is not allowed!" << endl;
+        } else {
+            result /= val;
+        }
+        return *this;
+    }
+
+    int getResult() const {
+        return result;
+    }
+};
 
 
 

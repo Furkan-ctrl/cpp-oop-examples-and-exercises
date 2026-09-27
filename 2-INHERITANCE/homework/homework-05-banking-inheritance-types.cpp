@@ -46,11 +46,70 @@ using namespace std;
 /*
     Solution
 */
+class Account{
+    private:
+        int accountNumber;
+        string accountHolder;
+        double balance;
+
+    public:
+      Account(int accNum, string accHolder, double balance) : accountNumber(accNum), accountHolder(accHolder), balance(balance) {}
+
+        void deposit(double amount) {
+                balance += amount;
+                cout << "Deposit: " << amount << " Balance: " << balance << endl;
+            }
+    
+            void withdraw(double amount) {
+                if (amount <= balance) {
+                    balance -= amount;
+                    cout << "Withdraw: " << amount << " Balance: " << balance << endl;
+                } else {
+                    cout << "Insufficient Funds" << endl;
+                }
+            }
+    
+            double getBalance() const {
+                return balance;
+            }
+};
+
+
+class SavingsAccount : public Account {
+    public:
+        SavingsAccount(int accNum, string accHolder, double balance) : Account(accNum, accHolder, balance) {}
+
+        void applyInterest(double interestRate) {
+            double interest = getBalance() * interestRate;
+            deposit(interest);
+            cout << "Interest Applied: Balance: " << getBalance() << endl;
+        }
+};
+
+class CheckingAccount : protected Account {
+    public:
+        CheckingAccount(int accNum, string accHolder, double balance) : Account(accNum, accHolder, balance) {}
+
+        void applyMonthlyFee(double fee) {
+            withdraw(fee);
+            cout << "Monthly Fee Applied: Balance: " << getBalance() << endl;
+        }
+};
+
+class CreditCardAccount : private Account {
+    public:
+        CreditCardAccount(int accNum, string accHolder, double balance) : Account(accNum, accHolder, balance) {}
+
+        void makePurchase(double amount) {
+            withdraw(amount);
+            cout << "Purchase Made: Amount: " << amount << " Balance: " << getBalance() << endl;
+        }
+};
 
 
 int main() {
 
-    system("clear");
+    system("cls");
 
     /*    Example Usage    */
 

@@ -24,24 +24,40 @@ using namespace std;
 
 class Shape {
     public:
-        // Static method to compare the areas of two shapes
-        // Hint: You'll need to access the CalculateArea static methods in the derived classes.
+        static void compareAreas(double area1, double area2) {
+            if (area1 == area2) {
+                cout << "The areas of the circle and the rectangle are equal." << endl;
+            } else if (area1 > area2) {
+                cout << "The area of the circle is larger than the rectangle." << endl;
+            } else {
+                cout << "The area of the rectangle is larger than the circle." << endl;
+            }
+        }
 };
 
 class Circle : public Shape {
+    private:
+        double radius;
+
     public:
         Circle(double radius) : radius(radius) {}
 
-        // Static method to calculate the area of a circle
-        // Hint: Use the formula for calculating the area of a circle (A = π * r^2)
+        static double calculateArea(double radius) {
+            return 3.14159 * radius * radius;
+        }
 };
 
 class Rectangle : public Shape {
+    private:
+        double width;
+        double height;
+
     public:
         Rectangle(double width, double height) : width(width), height(height) {}
 
-        // Static method to calculate the area of a rectangle
-        // Hint: Use the formula for calculating the area of a rectangle (A = width * height)
+        static double calculateArea(double width, double height) {
+            return width * height;
+        }
 };
 
 int main() {
@@ -53,9 +69,13 @@ int main() {
     cout << "Enter the width and height of a rectangle: ";
     cin >> rectWidth >> rectHeight;
 
-    // Calculate and display the areas using the static methods
+    double circleArea = Circle::calculateArea(circleRadius);
+    double rectArea = Rectangle::calculateArea(rectWidth, rectHeight);
 
-    // Implement comparisons of areas using the static method in the Shape class
+    cout << "Area of the circle: " << circleArea << endl;
+    cout << "Area of the rectangle: " << rectArea << endl;
+
+    Shape::compareAreas(circleArea, rectArea);
 
     return 0;
 }

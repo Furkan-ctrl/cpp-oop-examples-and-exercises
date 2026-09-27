@@ -34,20 +34,36 @@ using namespace std;
 class DataStorageProvider {
     public:
         // TODO: Add a pure virtual function to store data
+        virtual void storeData(const string& data) = 0;
 
         // TODO: Add a common function to log storage attempts
+        void logStorageAttempt(const string& data) {
+            cout << "Storage attempt for data: " << data << " logged" << endl;
+        }
+
+        virtual ~DataStorageProvider() {}
 };
 
 // Concrete subclass for storing data in a relational database
 class RelationalDatabaseStorage : public DataStorageProvider {
     public:
         // TODO: Implement the storeData function
+        void storeData(const string& data) override {
+            cout << "Storing data in a relational database: " << data << endl;
+        }
+
+
 };
 
 // Concrete subclass for storing data in a cloud-based NoSQL database
 class CloudNoSQLStorage : public DataStorageProvider {
     public:
         // TODO: Implement the storeData function
+        void storeData(const string& data) override {
+            cout << "Storing data in a cloud-based NoSQL database: " << data << endl;
+        }
+
+        
 };
 
 
@@ -55,10 +71,16 @@ class CloudNoSQLStorage : public DataStorageProvider {
 int main() {
 
     // TODO: Create instances of RelationalDatabaseStorage and CloudNoSQLStorage
+    RelationalDatabaseStorage relationalStorage;
+    CloudNoSQLStorage cloudStorage;
 
     // TODO: Log storage attempts for different data
+    relationalStorage.logStorageAttempt("Sample data 1");
+    cloudStorage.logStorageAttempt("Sample data 2");
 
     // TODO: Store data using each storage provider
+    relationalStorage.storeData("Sample data 1");
+    cloudStorage.storeData("Sample data 2");
 
 
     /*

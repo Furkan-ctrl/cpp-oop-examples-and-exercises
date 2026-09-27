@@ -32,9 +32,72 @@ using namespace std;
 
 /*
     Solution
+
 */ 
+class User {
+protected:
+    string username;
 
+public:
+    User(string uname) : username(uname) {}
+    virtual ~User() {}
 
+    virtual void login() {
+        cout << username << " has logged in" << endl;
+    }
+
+    virtual void logout() {
+        cout << username << " has logged out" << endl;
+    }
+
+    virtual void performAction() {
+        cout << username << " is performing a general action" << endl;
+    }
+
+    virtual void viewProfile() {
+        cout << "Viewing the profile of " << username << "." << endl;
+    }
+};
+
+class SiteUser : public User {
+public:
+    SiteUser(string uname) : User(uname) {}
+
+    void performAction() override {
+        cout << username << " is browsing the site" << endl;
+    }
+
+    virtual void postComment() {
+        cout << "Comment posted by " << username << "." << endl;
+    }
+};
+
+class AdminUser : public SiteUser {
+public:
+    AdminUser(string uname) : SiteUser(uname) {}
+
+    void performAction() override {
+        cout << username << " is performing administrative tasks" << endl;
+    }
+};
+
+class ModeratorUser : public AdminUser {
+public:
+    ModeratorUser(string uname) : AdminUser(uname) {}
+
+    virtual void moderateContent() {
+        cout << "Content moderated by " << username << "." << endl;
+    }
+};
+
+class ManagerUser : public AdminUser {
+public:
+    ManagerUser(string uname) : AdminUser(uname) {}
+
+    virtual void manageUsers() {
+        cout << "Users managed by " << username << "." << endl;
+    }
+};
 
 int main() {
 

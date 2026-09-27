@@ -38,7 +38,57 @@ using namespace std;
 
 
 /*  Solution */
+class Employee {
+    private:
+        int id;
+        string name;
+        string designation;
+        double salary;
 
+    public:
+       
+        Employee(int empId, const string& empName, const string& empDesignation, double empSalary)
+            : id(empId), name(empName), designation(empDesignation), salary(empSalary) {}
+
+        
+        Employee() : id(0), name("Unknown"), designation("Unknown"), salary(0.0) {}
+
+     
+        void setID(int empId) {
+             id = empId; 
+        }
+        void setName(const string& empName) {
+             name = empName; 
+        }
+        void setDesignation(const string& empDesignation) {
+             designation = empDesignation; 
+        }
+        void setSalary(double empSalary) {
+             salary = empSalary; 
+        }
+
+      
+        int getID() const {
+             return id; 
+        }
+        string getName() const {
+             return name; 
+        }
+        string getDesignation() const {
+             return designation; 
+        }
+        double getSalary() const { 
+            return salary; 
+        }
+
+        
+        void displayDetails() const {
+            cout << "Employee ID: " << id << endl;
+            cout << "Name: " << name << endl;
+            cout << "Designation: " << designation << endl;
+            cout << "Salary: $" << salary << endl;
+        }
+    };
 
 
 int main() {

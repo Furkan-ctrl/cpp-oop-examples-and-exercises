@@ -54,8 +54,67 @@ using namespace std;
 
 
 /* Solution */
+class LibraryItem {
+private:
+    string title;
+    string authorOrDirector;
+    int publicationYear;
 
+public:
+    LibraryItem(const string& title, const string& authorOrDirector, int publicationYear)
+        : title(title), authorOrDirector(authorOrDirector), publicationYear(publicationYear) {}
 
+    virtual void displayInfo() const {
+        cout << "Title: " << title << endl;
+        cout << "Author/Director: " << authorOrDirector << endl;
+        cout << "Publication Year: " << publicationYear << endl;
+    }
+};
+
+class Book : public LibraryItem {
+private:
+    string isbn;
+
+public:
+    Book(const string& title, const string& authorOrDirector, int publicationYear, const string& isbn)
+        : LibraryItem(title, authorOrDirector, publicationYear), isbn(isbn) {}
+
+    void displayInfo() const override {
+        LibraryItem::displayInfo();
+        cout << "ISBN: " << isbn << endl;
+    }
+};
+
+class DVD : public LibraryItem {
+private:
+    int runtime;
+
+public:
+    DVD(const string& title, const string& authorOrDirector, int publicationYear, int runtime)
+        : LibraryItem(title, authorOrDirector, publicationYear), runtime(runtime) {}
+
+    void displayInfo() const override {
+        LibraryItem::displayInfo();
+        cout << "Runtime: " << runtime << " minutes" << endl;
+    }
+};
+
+class Library {
+private:
+    vector<LibraryItem*> items;
+
+public:
+    void addItem(LibraryItem* item) {
+        items.push_back(item);
+    }
+
+    void displayAllItems() const {
+        for (const auto& item : items) {
+            item->displayInfo();
+            cout << "------------------------" << endl;
+        }
+    }
+};
 
 int main() {
 
